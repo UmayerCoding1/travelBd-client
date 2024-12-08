@@ -5,8 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {AlexBrush: "'Alex Brush', cursive"}
+    },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }
 

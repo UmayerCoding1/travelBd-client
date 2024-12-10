@@ -4,7 +4,7 @@ import { LocationIcon, SearchIcon } from "../../../../provider/IconProvider";
 import video1 from './../../../../assets/image/banner/videofile.mp4'
 import video2 from './../../../../assets/image/banner/videofile2.mp4'
 import video3 from './../../../../assets/image/banner/videofile3.mp4'
-import { SkeletonContext } from "../../../../contexts/loading";
+import { SkeletonContext } from "../../../../utils/loading";
 import HeroSkeleton from "../../../../skeletons/hero-skeleton/HeroSkeleton";
 import { Checkbox, FormControlLabel } from "@mui/material";
 

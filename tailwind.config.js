@@ -6,7 +6,10 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {AlexBrush: "'Alex Brush', cursive"}
+      fontFamily: {
+        AlexBrush: "'Alex Brush', cursive",
+        Inconsolata: "'Inconsolata', monospace"
+      }
     },
   },
   plugins: [require('daisyui')],

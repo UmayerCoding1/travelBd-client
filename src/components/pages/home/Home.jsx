@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Banner from './banner/Banner';
 import About from './about/About';
-import { SkeletonContext } from '../../../contexts/loading';
+import { SkeletonContext } from '../../../utils/loading';
 import Service from './service/Service';
 
 

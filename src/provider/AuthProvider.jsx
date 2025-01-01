@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import UseAxiosPublic from '../hooks/UseAxiosPublic';
+import toast from 'react-hot-toast';
 
 
 export const AuthContext = createContext(null);
@@ -20,12 +21,13 @@ const AuthProvider = ({children}) => {
       return axiosPublic.post('/login',loginData)
     }
 
-    const logoutUser = () => {
+    const logoutUser = async () => {
         setLoading(true);
-        axiosPublic.post('/logout')
+        await axiosPublic.post('/logout')
         .then(res => {
-             setUser('')
-             setLoading(false)
+            console.log(res.data.message);
+             setUser(null)
+             setLoading(false);
         })
         .catch((error) => {
             console.log(error.message);
@@ -34,22 +36,34 @@ const AuthProvider = ({children}) => {
 
     
     useEffect(() => {
-        setLoading(true);
+        
         const storeUser = async () => {
-            await axiosPublic.get('/refresh')
-        .then(res => {
-            if(res.data.data){
-              setUser(res.data.data);
-              setLoading(false);
-              console.log('currentUser', res.data.data);
-            }
-        })}
+        const res =  await axiosPublic.get('/refresh');
+         try {
+            if(res.data?.data){
+                setUser(res.data.data);
+                setLoading(false);
+                console.log('currentUser', res.data.data);
+              }
+         } catch (error) {
+            console.log(error.message);
+         }
+         finally{
+            setLoading(false)
+         }
 
+         
+        }
 
+    setTimeout(() => {
+        !user ? setLoading(false) : console.log(false);
+    },1000)
+   
+   
         storeUser();
-            
+        
  
-    },[])
+    },[axiosPublic])
     
     
     const authInfo ={

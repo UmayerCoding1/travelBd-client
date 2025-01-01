@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { logo, userImg } from '../../../provider/ImageProvider';
 import { Link, NavLink } from 'react-router';
 import { ArrowDownIcon, BookingIcon, HeartICon, LogoutIcon, ProfileIcon, RightArrowIcon } from '../../../provider/IconProvider';
 import useAuth from '../../../hooks/useAuth';
+import Logout from '../logout/Logout';
 
 const Navbar = () => {
   const [showUserNav, setShowUserNav]= useState(false);
-  const {user,logoutUser} = useAuth();
-  console.log(user);
-  
+  const {user} = useAuth();
+  const hideUserNavRef = useRef(null);
     const navLink = <>
       <li className='font-semibold mr-5 text-[13px]'><NavLink to={'/'}>Home</NavLink></li>
       <li className='font-semibold mr-5 text-[13px]'><NavLink to={'/hotel'}>Hotel</NavLink></li>
@@ -18,12 +18,25 @@ const Navbar = () => {
     </>
 
     const userNavItem = <>
-       <li><NavLink className={'flex items-center gap-2 text-white mt-5 font-[500] hover:text-orange-500'} to={'/profile'}><ProfileIcon/> Profile</NavLink></li>
+       <li><NavLink className={'flex items-center gap-2 text-white mt-5 font-[500] hover:text-orange-500 '} to={'/profile'}><ProfileIcon/> Profile</NavLink></li>
        <li><NavLink className={'flex items-center gap-2 text-white mt-5 font-[500] hover:text-orange-500'} to={'/my-booking'}><BookingIcon/> My Booking</NavLink></li>
        <li><NavLink className={'flex items-center gap-2 text-white mt-5 font-[500] hover:text-orange-500'} to={'/Saved'}><HeartICon/> Saved</NavLink></li>
 
-       <li onClick={logoutUser}className={'flex items-center gap-2 text-red-500 mt-5 font-[500] hover:text-red-500'} ><LogoutIcon/> Sign Out</li>
+       <Logout style={'flex items-center gap-2 text-red-500 mt-5 font-[500] cursor-pointer hover:text-red-500'}/>
     </>
+
+useEffect(() => {
+  const handleOutsideClick = (e) => {
+    if (hideUserNavRef.current && !hideUserNavRef.current.contains(e.target)) {
+      setShowUserNav(false);
+    }
+  };
+  document.addEventListener("click", handleOutsideClick);
+
+  return () => {
+    document.removeEventListener("click", handleOutsideClick);
+  };
+}, []);
     return (
         <header>
            <nav className='flex items-center justify-between'>
@@ -37,12 +50,15 @@ const Navbar = () => {
 
               {user ? <div>
 
-                <div onClick={() => setShowUserNav(!showUserNav)} className='flex items-center cursor-pointer relative'>
+                <div onClick={(e) => {
+                  e.stopPropagation();
+                  setShowUserNav(!showUserNav)
+                }} className='flex items-center cursor-pointer relative'>
                 <img className='w-8 h-8 rounded-full' src={user.avatar ? user.avatar : userImg} alt="" />
                 <ArrowDownIcon className='text-gray-500'/>
 
 
-                <div className={`bg-[#000] shadow-2xl w-44  p-3 absolute z-10 top-10 left-[-140px] ${showUserNav ? '' : 'hidden'}`}>
+                <div ref={hideUserNavRef} className={`bg-[#000] shadow-2xl w-44  p-3 absolute z-10 top-10 left-[-140px] ${showUserNav ? '' : 'hidden'}`}>
                     <ul>
                       {userNavItem}
                     </ul>

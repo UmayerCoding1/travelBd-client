@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import loginImg from '../../../assets/image/login-img.jpg'
 import { logo } from '../../../provider/ImageProvider';
 import { useForm } from 'react-hook-form';
@@ -7,6 +7,7 @@ import UseAxiosPublic from '../../../hooks/UseAxiosPublic';
 import useAuth from '../../../hooks/useAuth';
 import toast, { Toaster } from 'react-hot-toast';
 const SignUp = () => {
+    const [error,setError] = useState('');
     const {createUser,setUser} = useAuth();
     const navigate = useNavigate();
     const {
@@ -16,6 +17,9 @@ const SignUp = () => {
         formState: { errors },
       } = useForm()
       const onSubmit = async(data) => {
+        if (data.password.length < 6) {
+            return setError('Password length at list 6')
+        }
         const userData ={
             fullName : data.fullName,
             userName: data.userName,
@@ -26,16 +30,20 @@ const SignUp = () => {
             createUser(userData)
             .then(res => {
                toast.success(res.data.message);
-               setUser(res.data.data)
+               setUser(res.data.data);
+               setError('')
+               navigate('/')
              })
-             .catch(error => {
-              console.log(error);
+             .catch(err => {
+              console.log(err);
+              if (err.status === 409) {
+                toast.error("This email already exist")
+              }
              })
       }
       const handleSignUp = (e) => {
         e.preventDefault;
         handleSubmit(onSubmit)(e);
-        
       }
     return (
         <div className='flex items-center justify-center h-screen bg-[#DADBDD] lg:p-10'>
@@ -69,7 +77,10 @@ const SignUp = () => {
                 <div className='bg-gray-200 h-14 mt-5 p-2 rounded-lg relative'>
                     <p className='text-xs font-bold absolute top-2 z-10 font-Inconsolata' >Password</p> <br />
                     <input className='outline-none absolute text-xs pt-2 top-0 left-0 pl-2 bg-transparent w-full h-full ' type="password" {...register("password", {required: true})} placeholder='type hear'/>
+                    
                 </div>
+                {error ?<p className='text-xs pl-2 text-red-500 font-semibold'>{error}</p> : ''}
+                
                 {/* todo */}
 
 

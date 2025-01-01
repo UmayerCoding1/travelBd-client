@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import loginImg from '../../../assets/image/login-img.jpg'
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { logo } from '../../../provider/ImageProvider';
 import useAuth from '../../../hooks/useAuth';
 import toast, { Toaster } from 'react-hot-toast';
 const SignIn = () => {
+    const [errorMessage,setErrorMessage] = useState('');
     const {loginUser,setUser,setLoading} = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const navigateForm = location.state?.form?.pathname || '/';
+    
+    
     const handleSignIn = (e) => {
        e.preventDefault();
        const from = e.target;
@@ -23,10 +28,16 @@ const SignIn = () => {
 
           setTimeout(() => {
             // todo: navigate to location state
-            navigate('/')
+            navigate(navigateForm)
           },500)
         }
         
+       })
+       .catch(err => {
+        console.log(err.status);
+        
+         err.status === 404 ?  toast.error('Email is not exist'): null
+         err.status === 401 ? toast.error('Password is not valid') : null;
        })
        
     }
@@ -39,7 +50,7 @@ const SignIn = () => {
             </Link> */}
                <div className='w-full lg:w-[40%] lg:p-5 pb-0 '>
             
-             <form onSubmit={handleSignIn} className=' p-5 lg:p-10 pt-5 border'>
+             <form onSubmit={handleSignIn} className=' p-5 lg:p-16 pt-5 border'>
                 <div>
                     <h2 className='text-3xl font-bold'>Sign In</h2>
                     
@@ -61,7 +72,7 @@ const SignIn = () => {
 
 
                 <div>
-                    <button className='w-full h-10 rounded-lg mt-3 bg-black text-white text-xs' type='submit'>Sign In</button>
+                    <button className='w-full h-10 rounded-lg mt-3 font-semibold bg-black text-white text-xs' type='submit'>Sign In</button>
                 </div>
                 <p className='text-xs mt-2 text-center font-semibold'> Create a new account? <Link to={'/sign-up'} className='link'>Sign Up</Link></p>
              </form>

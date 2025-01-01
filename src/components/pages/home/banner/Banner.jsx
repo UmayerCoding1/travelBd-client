@@ -7,6 +7,7 @@ import video3 from './../../../../assets/image/banner/videofile3.mp4'
 import { SkeletonContext } from "../../../../utils/loading";
 import HeroSkeleton from "../../../../skeletons/hero-skeleton/HeroSkeleton";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import { useNavigate } from "react-router";
 
 
 
@@ -18,6 +19,7 @@ const Banner = () => {
   const {skeletonLoading} = useContext(SkeletonContext)
   const {city} = address || {};
   const videoRef = useRef(null);
+  const navigate =  useNavigate();
 
     useEffect(() => {
         const speed = () => {
@@ -30,13 +32,14 @@ const Banner = () => {
       (position) => {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
+        console.log(lat,lon);
+        
         fetchAddress(lat, lon);
       },
       (err) => {
         console.log(`Error: ${err.message}`);
       }
     );
-console.log(1);
 
     speed();
     return () => navigator.geolocation.clearWatch(watchId);
@@ -59,7 +62,7 @@ console.log(1);
     };
  
  
- 
+
   return (
     <div>
       {skeletonLoading ? <HeroSkeleton/> :

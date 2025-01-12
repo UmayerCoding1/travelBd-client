@@ -24,6 +24,7 @@ const SignIn = () => {
        .then(res => {
         if(res.data.data.user){
           setUser(res.data.data.user);
+          localStorage.setItem('accessToken', res.data.data.accessToken)
           setLoading(false);
           toast.success(res.data.message);
 

@@ -2,11 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DataPicker from './DatePicker';
 import { CloseIcon, DownIcon } from '../../../../provider/IconProvider';
-import UseApiEndpoint from '../../../../hooks/useApiEndpoint';
-import useAuth from '../../../../hooks/useAuth';
 import toast, { Toaster } from 'react-hot-toast';
 import useLoggedUserData from '../../../../hooks/useLoggedUserData';
-import Loading from './../../../shared/loading/Loading';
+import useSecureApiEndPoint from '../../../../hooks/useSecureApiEndPoint';
 
 const BasicInfoForm = ({ action }) => {
   const [LoggedUser,loggedUserRefetch] = useLoggedUserData();
@@ -32,8 +30,8 @@ const BasicInfoForm = ({ action }) => {
   const hideReligionRef = useRef(null);
   const genderData = ['Male','Female'];
   const MSData = ['Single','Married']; // MS = Marital Status
-  const apiEndPoint = UseApiEndpoint();
- 
+  const secureApiEndPoint = useSecureApiEndPoint();
+  
   const regionData = [
     'Islam',
     'Hindu',
@@ -55,19 +53,22 @@ const BasicInfoForm = ({ action }) => {
      
       const onSubmit = async(data) => {
         
-
+          
         const basicInfoData = {
           fullName: data.firstName +' '+data.lastName,
           date_of_Birth : DOB,
           nationalID : data.nationalID,
-          gender: selectGenderText,
-          marital_status : mSText,
-          religion : selectReligionText,
+          gender: selectGenderText === 'Select Gender' ? '' : selectGenderText,
+          marital_status : mSText === 'Select Marital Status' ? '' : mSText,
+          religion : selectReligionText === 'Select Religion'? "" : selectReligionText,
           emergency_contact : data.number
         }
 
+        console.log(basicInfoData);
+        
+
          try {
-          const response = await apiEndPoint.patch('/update-User-info', basicInfoData);
+          const response = await secureApiEndPoint.patch('/update-User-info', basicInfoData);
           if (response.data.data) {
             toast.success('User information update', {duration: 1000, position:'bottom-right'})
             loggedUserRefetch();
@@ -78,7 +79,7 @@ const BasicInfoForm = ({ action }) => {
          }
          
          
-         console.log(basicInfoData);
+         
          
       }
 

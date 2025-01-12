@@ -3,11 +3,12 @@ import React from 'react';
 
 const apiEndpoint = axios.create({
     // baseURL:"http://localhost:5000/api",
-    baseURL: "https://travelbd-1v4g.onrender.com/api",
-    withCredentials: true
+    baseURL: "https://travelbd-server-vgxf.onrender.com/api",
+    withCredentials: true,
 })
-const UseApiEndpoint = () => {
+const UsePublicApiEndpoint = () => {
+ 
     return apiEndpoint;
 };
 
-export default UseApiEndpoint;
+export default UsePublicApiEndpoint;

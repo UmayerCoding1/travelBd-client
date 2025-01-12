@@ -8,14 +8,16 @@ import useLoggedUserData from '../../../../hooks/useLoggedUserData';
 import toast, { Toaster } from 'react-hot-toast';
 import { NavLink } from 'react-router';
 import Tooltip from '../../../shared/tooltip/Tooltip';
-import UseApiEndpoint from '../../../../hooks/UseapiEndpoint';
+
+import useSecureApiEndPoint from '../../../../hooks/useSecureApiEndPoint';
+
 
 const Profile = () => {
     const [loading, setLoading] = useState(false);
     const [updatePersonalInfo, setUpdatePersonalInfo] = useState(false);
     const [user, setUser] = useState();
     const {setUser: updateSetUser} = useAuth();
-    const apiEndPoint = UseApiEndpoint();
+    const apiEndPoint = useSecureApiEndPoint();
     const [LoggedUser, loggedUserRefetch] = useLoggedUserData();
     useEffect(() => {
         if (LoggedUser && LoggedUser.length > 0) {
@@ -29,6 +31,7 @@ const Profile = () => {
         const formData = new FormData();
         formData.append('avatar', avatarImage);
         setLoading(true);
+console.log(avatarImage);
 
         const response = await apiEndPoint.put('/update-avatar', formData);
         if (response.data.data) {
@@ -43,7 +46,7 @@ const Profile = () => {
     }
     return (
         <div className='  lg:p-20 pt-5 lg:grid grid-cols-4 gap-6'>
-            <div className='bg-white shadow-lg w-full mb-5 lg:h-[55vh] col-span-1 p-1 pr-1 pt-2 '>
+            <div className='bg-white shadow-lg w-full mb-5 lg:h-[45vh] col-span-1 p-1 pr-1 pt-2 '>
                 <div className='w-full flex items-center justify-between lg:justify-start  lg:gap-5'>
                     {user?.avatar ? <img className='cursor-default w-28 h-28 rounded-full' src={user?.avatar} alt='profile image' />
                         :

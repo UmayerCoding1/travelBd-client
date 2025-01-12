@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Toltip = () => {
+const Tooltip = () => {
     return (
         <div>
-            
+            t
         </div>
     );
 };
 
-export default Toltip;
+export default Tooltip;

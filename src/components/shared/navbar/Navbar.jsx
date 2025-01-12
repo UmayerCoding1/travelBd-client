@@ -4,11 +4,19 @@ import { Link, NavLink } from 'react-router';
 import { ArrowDownIcon, BookingIcon, HeartICon, LogoutIcon, ProfileIcon, RightArrowIcon } from '../../../provider/IconProvider';
 import useAuth from '../../../hooks/useAuth';
 import Logout from '../logout/Logout';
+// import useLoggedUserData from '../../../hooks/useLoggedUserData';
 
 const Navbar = () => {
   const [showUserNav, setShowUserNav]= useState(false);
-  const {user} = useAuth();
+  // const [LoggedUser] = useLoggedUserData();
+  // const[user,setUser] = useState();
+  const {user} = useAuth()
   const hideUserNavRef = useRef(null);
+  // useEffect(() => {
+  //     if (LoggedUser && LoggedUser.length > 0) {
+  //       setUser(LoggedUser[0]);
+  //     }
+  //   }, [LoggedUser]);
     const navLink = <>
       <li className='font-semibold mr-5 text-[13px]'><NavLink to={'/'}>Home</NavLink></li>
       <li className='font-semibold mr-5 text-[13px]'><NavLink to={'/hotel'}>Hotel</NavLink></li>
@@ -18,11 +26,11 @@ const Navbar = () => {
     </>
 
     const userNavItem = <>
-       <li><NavLink className={'flex items-center gap-2 text-white mt-5 font-[500] hover:text-orange-500 '} to={'/profile'}><ProfileIcon/> Profile</NavLink></li>
-       <li><NavLink className={'flex items-center gap-2 text-white mt-5 font-[500] hover:text-orange-500'} to={'/my-booking'}><BookingIcon/> My Booking</NavLink></li>
-       <li><NavLink className={'flex items-center gap-2 text-white mt-5 font-[500] hover:text-orange-500'} to={'/Saved'}><HeartICon/> Saved</NavLink></li>
+       <li><NavLink className={'flex items-center gap-2 text-xl font-semibold text-white p-3 rounded-lg hover:bg-[#E1F2F8] hover:text-black cursor-pointer'} to={'/profile'}><ProfileIcon/> <span className='text-xs'>Profile</span></NavLink></li>
+       <li><NavLink className={'flex items-center gap-2 text-xl font-semibold text-white p-3 rounded-lg hover:bg-[#E1F2F8] hover:text-black cursor-pointer'} to={'/my-booking'}><BookingIcon/> <span className='text-xs'>My Booking</span></NavLink></li>
+       <li><NavLink className={'flex items-center gap-2 text-xl font-semibold text-white p-3 rounded-lg hover:bg-[#E1F2F8] hover:text-black cursor-pointer'} to={'/Saved'}><HeartICon/> <span className='text-xs'>Saved</span></NavLink></li>
 
-       <Logout style={'flex items-center gap-2 text-red-500 mt-5 font-[500] cursor-pointer hover:text-red-500'}/>
+       <Logout style={'flex items-center gap-2 text-xs font-semibold  p-3 rounded-lg hover:bg-red-50 text-red-500'}/>
     </>
 
 useEffect(() => {
@@ -58,7 +66,7 @@ useEffect(() => {
                 <ArrowDownIcon className='text-gray-500'/>
 
 
-                <div ref={hideUserNavRef} className={`bg-[#000] shadow-2xl w-44  p-3 absolute z-10 top-10 left-[-140px] ${showUserNav ? '' : 'hidden'}`}>
+                <div ref={hideUserNavRef} className={`bg-[#000] rounded-lg shadow-2xl w-44  p-3 absolute z-10 top-10 left-[-140px] ${showUserNav ? '' : 'hidden'}`}>
                     <ul>
                       {userNavItem}
                     </ul>

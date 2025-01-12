@@ -6,10 +6,21 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 
 
-const  DataPicker = () => {
+const  DataPicker = ({defaultValue,storeDOB}) => {
+  
+  const defaultDate = defaultValue ? dayjs(defaultValue, 'YYYY-MM-DD') : null;
+  
+  
+
+  
+  
+  const handleDateOfBirth = (newDate) => {
+    storeDOB(newDate?.format('YYYY-MM-DD'));
+  };
   return (
     <LocalizationProvider  dateAdapter={AdapterDayjs}>
       <DemoContainer
+      
         components={[
           'MobileDatePicker',
         ]}
@@ -18,7 +29,7 @@ const  DataPicker = () => {
       >
         
         
-          <MobileDatePicker sx={{
+          <MobileDatePicker onChange={handleDateOfBirth} sx={{
         
         borderRadius: '4px', 
         width: '100%', 
@@ -27,7 +38,9 @@ const  DataPicker = () => {
         paddingLeft: '8px', 
         outline: 'none', 
         border:'none'
-      }} defaultValue={dayjs('2022-04-17')}/>
+      }} 
+      />
+      {/* // defaultValue={dayjs(dob)}/> */}
         
        
       </DemoContainer>

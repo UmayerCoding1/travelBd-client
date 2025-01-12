@@ -2,36 +2,84 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DataPicker from './DatePicker';
 import { CloseIcon, DownIcon } from '../../../../provider/IconProvider';
+import UseApiEndpoint from '../../../../hooks/useApiEndpoint';
+import useAuth from '../../../../hooks/useAuth';
+import toast, { Toaster } from 'react-hot-toast';
+import useLoggedUserData from '../../../../hooks/useLoggedUserData';
+import Loading from './../../../shared/loading/Loading';
 
 const BasicInfoForm = ({ action }) => {
+  const [LoggedUser,loggedUserRefetch] = useLoggedUserData();
+  const [userData,setUserData] = useState();
+  useEffect(() => {
+    if (LoggedUser && LoggedUser.length > 0) {
+      setUserData(LoggedUser[0]);
+    }
+  }, [LoggedUser]);
+
+
+  const {fullName ,gender,marital_status, date_of_Birth, nationalID, religion, emergency_contact} = userData || 'N/A';
   const [showGender,setShowGender]= useState(false);
   const [showMS,setShowMS]= useState(false);// MS = Marital Status
   const [showReligion,setShowReligion] = useState(false);
-  const [selectSenderText,setSelectGenderText] = useState('Select Gender');
-  const [mSText,setMSText]= useState('Select Marital Status'); // MS = Marital Status
-  const [selectReligionText,setSelectReligionText] = useState('Select Religion');
-  const bodyEl = document.querySelector('body');
-  const rootEl = Array.from(bodyEl.children).filter(child => child.tagName === 'DIV');
+  const [selectGenderText,setSelectGenderText] = useState('');
+  const [mSText,setMSText]= useState(''); // MS = Marital Status
+  const [selectReligionText,setSelectReligionText] = useState('');
+  const [DOB,setDOB]= useState('');
+  // err handle
   const hideGenderRef = useRef(null);
   const hideMSRef = useRef(null); // MS = Marital Status
   const hideReligionRef = useRef(null);
   const genderData = ['Male','Female'];
   const MSData = ['Single','Married']; // MS = Marital Status
+  const apiEndPoint = UseApiEndpoint();
+ 
   const regionData = [
     'Islam',
     'Hindu',
     'Christianity',
     'Buddhism',
     'Others'
-  ]
+  ];
+
+   
+
+    
     const {
         register,
         handleSubmit,
         watch,
-        formState: { errors },
+        formState: { errors }
       } = useForm();
+
+     
       const onSubmit = async(data) => {
-        console.log(data);
+        
+
+        const basicInfoData = {
+          fullName: data.firstName +' '+data.lastName,
+          date_of_Birth : DOB,
+          nationalID : data.nationalID,
+          gender: selectGenderText,
+          marital_status : mSText,
+          religion : selectReligionText,
+          emergency_contact : data.number
+        }
+
+         try {
+          const response = await apiEndPoint.patch('/update-User-info', basicInfoData);
+          if (response.data.data) {
+            toast.success('User information update', {duration: 1000, position:'bottom-right'})
+            loggedUserRefetch();
+             setTimeout(()=> {action(false)},1000);
+          }
+         } catch (error) {
+          console.log(error.message);
+         }
+         
+         
+         console.log(basicInfoData);
+         
       }
 
       const handleUpdateInfo = (e) => {
@@ -39,7 +87,12 @@ const BasicInfoForm = ({ action }) => {
         handleSubmit(onSubmit)(e)
       }
     
-     
+     useEffect(() => {
+       setSelectGenderText(gender || 'Select Gender');
+       setMSText(marital_status || 'Select Marital Status');
+       setSelectReligionText(religion || 'Select Religion');
+       setDOB(date_of_Birth)
+     },[userData])
 
        useEffect(() => {
         const handleOutsideClick = (e) => {
@@ -59,6 +112,11 @@ const BasicInfoForm = ({ action }) => {
           document.removeEventListener("click", handleOutsideClick);
         };
       }, []);
+    
+      
+     if (!userData) {
+      return;
+     }
      
     return (
         <div>
@@ -72,8 +130,12 @@ const BasicInfoForm = ({ action }) => {
                       <input
                         className='border border-gray-500 rounded-md w-full h-10 text-xs pl-2 outline-none'
                         type="text"
-                        {...register('firstName', {required: true})}
+                        // defaultValue={fullName ? fullName.split(' ')[0] : ''}
+                        defaultValue={fullName.split(' ')[0] || ''}
+                        {...register('firstName')}
                       />
+                      
+                      
                   </div>
 
                   <div className='w-full lg:w-1/2'>
@@ -81,7 +143,10 @@ const BasicInfoForm = ({ action }) => {
                       <input
                         className='border border-gray-500 rounded-md w-full h-10 text-xs pl-2 outline-none'
                         type="text"
+                        defaultValue={fullName.split(' ')[1] || ''}
+                        {...register('lastName')}
                       />
+                      
                   </div>
                 </section>
 
@@ -89,7 +154,8 @@ const BasicInfoForm = ({ action }) => {
                   <div className='w-full lg:w-1/2'>
                       <label className='text-xs text-gray-700 pl-3' htmlFor="Date of Birth">Date of Birth</label> <br />
                       
-                      <DataPicker/>
+                      <DataPicker defaultValue={date_of_Birth} storeDOB={setDOB}/>
+                      
                   </div>
                
 
@@ -97,8 +163,11 @@ const BasicInfoForm = ({ action }) => {
                       <label className='text-xs text-gray-700' htmlFor="National ID">National ID</label> <br />
                       <input
                         className='border border-gray-500 rounded-md w-full h-10 text-xs pl-2 outline-none'
-                        type="text"
+                        type="number"
+                        defaultValue={nationalID}
+                        {...register('nationalID')}
                       />
+                       
                   </div>
                 </section>
 
@@ -109,7 +178,8 @@ const BasicInfoForm = ({ action }) => {
                       e.stopPropagation();
                       setShowGender(!showGender)
                     }} className='w-full h-10 flex items-center justify-between cursor-pointer border border-gray-500 outline-none rounded-md pl-2 text-xs transition-all duration-300 ease-in-out '>
-                       <p className=''>{selectSenderText}</p>
+                      
+                       <p className=''>{ selectGenderText}</p>
                        {showGender ? <CloseIcon className='text-lg mr-1'/> : <DownIcon className='text-lg mr-1'/>}
                     </div>
 
@@ -120,6 +190,7 @@ const BasicInfoForm = ({ action }) => {
                          }}
                           className='text-xs p-2  m-1 mt-1 rounded-lg cursor-pointer hover:bg-[#E1F2F8] transition-all duration-200 ease-in'>{item}</p>)}
                     </div> : ''}
+                    
                    </div>
 
                    <div className='w-full lg:w-1/2 relative ' ref={hideMSRef}>
@@ -139,6 +210,7 @@ const BasicInfoForm = ({ action }) => {
                          }}
                           className='text-xs p-2  m-1 mt-1 rounded-lg cursor-pointer hover:bg-[#E1F2F8] transition-all duration-200 ease-in'>{item}</p>)}
                     </div> : ''}
+                    
                    </div>
                 </section>
 
@@ -161,6 +233,8 @@ const BasicInfoForm = ({ action }) => {
                          }}
                           className='text-xs p-2  m-1 mt-1 rounded-lg cursor-pointer hover:bg-[#E1F2F8] transition-all duration-200 ease-in'>{item}</p>)}
                     </div> : ''}
+
+                    
                    </div>
 
                    <div className='w-full lg:w-1/2'>
@@ -169,7 +243,10 @@ const BasicInfoForm = ({ action }) => {
                         className='border border-gray-500 rounded-md w-full h-10 text-xs pl-2 outline-none'
                         type="number"
                         placeholder='01XXXXXXXXX'
+                        defaultValue={emergency_contact}
+                        {...register('number')}
                       />
+                      
                   </div>
                 </section>
 
@@ -177,10 +254,11 @@ const BasicInfoForm = ({ action }) => {
 
 
                    <div className='flex items-center justify-end gap-2 mt-5'>
-                    <button className=' w-20 h-10 text-[15px] border border-[#00026E] text-[#00026E] rounded-lg' type='button'>Clear</button>
+                    <button onClick={() => action(false)} className=' w-20 h-10 text-[15px] border border-[#00026E] text-[#00026E] rounded-lg' type='button'>Clear</button>
                     <button className='w-20 h-10 bg-[#00026E] text-white rounded-lg' type='submit'>Save</button>
                    </div>
             </form>
+          
         </div>
     );
 };

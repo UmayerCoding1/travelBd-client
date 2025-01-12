@@ -22,7 +22,12 @@ a.active{
     /* color: #F0721D; */
     background-image: linear-gradient(to right, green,red);
     background-clip: text;
-    color: transparent
+    color: transparent;
+}
+a.active:hover{
+  background-image: linear-gradient(to right, green,red);
+    background-clip: text;
+    color: transparent;
 }
 
 a.active svg {

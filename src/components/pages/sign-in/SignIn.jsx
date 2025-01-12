@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { logo } from '../../../provider/ImageProvider';
 import useAuth from '../../../hooks/useAuth';
 import toast, { Toaster } from 'react-hot-toast';
+import { duration } from '@mui/material';
 const SignIn = () => {
     const [errorMessage,setErrorMessage] = useState('');
     const {loginUser,setUser,setLoading} = useAuth();
@@ -34,10 +35,11 @@ const SignIn = () => {
         
        })
        .catch(err => {
-        console.log(err.status);
-        
-         err.status === 404 ?  toast.error('Email is not exist'): null
-         err.status === 401 ? toast.error('Password is not valid') : null;
+         err.status === 404 ?  toast.error('Email is not exist', {duration: 1000}): null
+         err.status === 401 ? toast.error('Password is not valid', {duration: 1000}) : null;
+         if (err.status !== 404 && err.status !== 401) {
+             toast.error(err.message, {duration: 500});
+         }
        })
        
     }

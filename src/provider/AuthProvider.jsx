@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import UseAxiosPublic from '../hooks/UseAxiosPublic';
+import UseApiEndpoint from '../hooks/UseapiEndpoint';
 import toast from 'react-hot-toast';
 
 
@@ -7,27 +7,29 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({children}) => {
     const [user,setUser]= useState(null);
     const [loading,setLoading]= useState(true);
-    const axiosPublic = UseAxiosPublic();
+    const apiEndpoint = UseApiEndpoint();
+    
 
 
     const createUser = (userData) => {
         setLoading(true);
-       return  axiosPublic.post('/register', userData)
+       return  apiEndpoint.post('/register', userData)
     }
 
 
     const loginUser = (loginData) => {
         setLoading(true);
-      return axiosPublic.post('/login',loginData)
+      return apiEndpoint.post('/login',loginData)
     }
 
     const logoutUser = async () => {
         setLoading(true);
-        await axiosPublic.post('/logout')
+        await apiEndpoint.post('/logout')
         .then(res => {
             console.log(res.data.message);
              setUser(null)
              setLoading(false);
+            //  loggedUserRefetch();
         })
         .catch((error) => {
             console.log(error.message);
@@ -37,8 +39,9 @@ const AuthProvider = ({children}) => {
     
     useEffect(() => {
         
+        
         const storeUser = async () => {
-        const res =  await axiosPublic.get('/refresh');
+        const res =  await apiEndpoint.get('/refresh');
          try {
             if(res.data?.data){
                 setUser(res.data.data);
@@ -63,7 +66,7 @@ const AuthProvider = ({children}) => {
         storeUser();
         
  
-    },[axiosPublic])
+    },[apiEndpoint])
     
     
     const authInfo ={

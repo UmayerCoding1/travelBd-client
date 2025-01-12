@@ -3,7 +3,7 @@ import loginImg from '../../../assets/image/login-img.jpg'
 import { logo } from '../../../provider/ImageProvider';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
-import UseAxiosPublic from '../../../hooks/UseAxiosPublic';
+import UseApiEndpoint from '../../../hooks/UseapiEndpoint';
 import useAuth from '../../../hooks/useAuth';
 import toast, { Toaster } from 'react-hot-toast';
 const SignUp = () => {
@@ -30,9 +30,8 @@ const SignUp = () => {
             createUser(userData)
             .then(res => {
                toast.success(res.data.message);
-               setUser(res.data.data);
                setError('')
-               navigate('/')
+               navigate('/sign-in')
              })
              .catch(err => {
               console.log(err);

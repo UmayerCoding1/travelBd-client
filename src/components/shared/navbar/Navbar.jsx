@@ -48,7 +48,7 @@ useEffect(() => {
     return (
         <header>
            <nav className='flex items-center justify-between'>
-             <img className='w-40' src={logo} alt="" />
+            <Link to={'/'}> <img className='w-40' src={logo} alt="" /></Link>
 
              <ul className=' hidden lg:flex'>
                {navLink}

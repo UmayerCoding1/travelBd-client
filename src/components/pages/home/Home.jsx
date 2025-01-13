@@ -5,6 +5,7 @@ import { SkeletonContext } from '../../../utils/loading';
 import Service from './service/Service';
 import Destination from './destination/Destination';
 import Review from './review/Review';
+import SearchOption from './searchOption/SearchOption';
 
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
             
             <>
               <Banner/>
+              <SearchOption/>
               <About/>
               <Service/>
               <Destination/>

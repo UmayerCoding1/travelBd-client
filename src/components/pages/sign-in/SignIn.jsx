@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import loginImg from '../../../assets/image/login-img.jpg'
 import { Link, useLocation, useNavigate } from 'react-router';
 import { logo } from '../../../provider/ImageProvider';
 import useAuth from '../../../hooks/useAuth';
 import toast, { Toaster } from 'react-hot-toast';
-import { duration } from '@mui/material';
+import { CloseIcon } from '../../../provider/IconProvider';
+import Loading from '../../shared/loading/Loading';
 const SignIn = () => {
-    const [errorMessage,setErrorMessage] = useState('');
+    const [showForgotPassword,setForgotPassword] = useState(false);
+    const [loading,isLoading] = useState(false);
     const {loginUser,setUser,setLoading} = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -29,7 +30,6 @@ const SignIn = () => {
           toast.success(res.data.message);
 
           setTimeout(() => {
-            // todo: navigate to location state
             navigate(navigateForm)
           },500)
         }
@@ -45,12 +45,10 @@ const SignIn = () => {
        
     }
     return (
-        <div className='flex items-center justify-center lg:h-screen bg-[#DADBDD] lg:p-10'>
+        <div className='flex items-center justify-center lg:h-screen bg-[#DADBDD] lg:p-10 relative'>
             
             <div className='bg-white h-screen w-full  flex items-center justify-center'>
-                {/* <Link to='/'>
-            <img className='w-20' src={logo} alt="" />
-            </Link> */}
+               
                <div className='w-full lg:w-[40%] lg:p-5 pb-0 '>
             
              <form onSubmit={handleSignIn} className=' p-5 lg:p-16 pt-5 border'>
@@ -71,8 +69,46 @@ const SignIn = () => {
                     <p className='text-xs font-bold absolute top-2 z-10 font-Inconsolata' >Password</p> <br />
                     <input className='outline-none absolute text-xs pt-2 top-0 left-0 pl-2 bg-transparent w-full h-full ' type="password" name='password' placeholder='type hear' autoComplete='current-password'/>
                 </div>
-                {/* todo */}
+                 <p onClick={() => {
+                    isLoading(true);
+                    setTimeout(() => {
+                        setForgotPassword(true);
+                        isLoading(false)
+                    },2000)
+                 }} className='text-xs underline text-blue-500 inline-block float-right pt-1 cursor-pointer'>Forgot password</p>
+                 {loading && <div className='w-full h-screen bg-black/50 absolute left-0 top-0 z-10 flex items-center justify-center'>
+                       <Loading/>
+                    </div>}
 
+                 {
+                    showForgotPassword &&    <div className='w-full h-screen bg-black/50 absolute left-0 top-0 z-10 flex items-center justify-center'>
+                    <div className='w-[400px] h-[450px] bg-white rounded-lg p-3'>
+                      <div className='flex items-center justify-between'>
+                       <img className='w-40' src={logo} alt="" />
+                       <CloseIcon onClick={() => setForgotPassword(false)} className='w-8 h-8 text-lg bg-gray-200 text-gray-600 p-2 rounded-full cursor-pointer '/>
+                      </div>
+                         
+
+                       <form className='mt-10 p-5'>
+                           <div className='mb-3'>
+                               <label className='text-xs pl-1 font-semibold' htmlFor="old-pass">Old password</label>
+                               <input className='w-full h-10 outline-none bg-gray-100 rounded-lg text-xs pl-2' type="password" name="" placeholder='Type hear...'/>
+                           </div>
+                           <div className='mb-3'>
+                               <label className='text-xs pl-1 font-semibold' htmlFor="new-pass">New password</label>
+                               <input className='w-full h-10 outline-none bg-gray-100 rounded-lg text-xs pl-2' type="password" name="" placeholder='Type hear...'/>
+                           </div>
+                           <div className='mb-3'>
+                               <label className='text-xs pl-1 font-semibold' htmlFor="Retype -new-pass">Retype new password</label>
+                               <input className='w-full h-10 outline-none bg-gray-100 rounded-lg text-xs pl-2' type="password" name="" placeholder='Type hear...'/>
+                           </div>
+
+                           <button className='w-full h-10 bg-blue-500 rounded-lg text-xs font-bold text-white' type='submit'>Update password</button>
+                       </form>
+                    </div>
+                </div>
+                 }
+              
 
                 <div>
                     <button className='w-full h-10 rounded-lg mt-3 font-semibold bg-black text-white text-xs' type='submit'>Sign In</button>

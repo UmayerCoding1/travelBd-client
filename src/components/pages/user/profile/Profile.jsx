@@ -7,14 +7,14 @@ import BasicInfo from './BasicInfo';
 import useLoggedUserData from '../../../../hooks/useLoggedUserData';
 import toast, { Toaster } from 'react-hot-toast';
 import { NavLink } from 'react-router';
-import Tooltip from '../../../shared/tooltip/Tooltip';
-
+import Tooltip from '../../../shared/tooltip/Tooltip'
 import useSecureApiEndPoint from '../../../../hooks/useSecureApiEndPoint';
 
 
 const Profile = () => {
     const [loading, setLoading] = useState(false);
     const [updatePersonalInfo, setUpdatePersonalInfo] = useState(false);
+    const [showTooltip,setShowTooltip] = useState(false);
     const [user, setUser] = useState();
     const {setUser: updateSetUser} = useAuth();
     const apiEndPoint = useSecureApiEndPoint();
@@ -44,6 +44,15 @@ console.log(avatarImage);
 
 
     }
+
+    const handleTooltip = () => {
+        setShowTooltip(true);
+    }
+    const handleMouseLeave = () => {
+        setShowTooltip(false);
+      };
+      
+      
     return (
         <div className='  lg:p-20 pt-5 lg:grid grid-cols-4 gap-6'>
             <div className='bg-white shadow-lg w-full mb-5 lg:h-[45vh] col-span-1 p-1 pr-1 pt-2 '>
@@ -54,13 +63,23 @@ console.log(avatarImage);
 
                     {loading ? <p className='text-xs text-gray-500'>Avatar image update...</p>
                         :
-                        <div className="flex items-center gap-2 ">
+                        <div className="flex items-center gap-2 relative">
                             <label
                                 htmlFor="fileUpload"
                                 className="flex items-center px-4 py-2 cursor-pointer"
                             >
-                                <EditIcon className="text-2xl" /> <span className="font-semibold">Edit</span>
+                                <div
+                                onMouseEnter={handleTooltip}
+                                onMouseLeave={handleMouseLeave} 
+                                className='flex items-center'>
+                                <EditIcon
+                                className="text-2xl" /> <span className="font-semibold">Edit</span>
                                 <input onChange={handleUpdateAvatar} type="file" name='avatar' id="fileUpload" className="hidden" />
+                                </div>
+
+                                {showTooltip && <div className='absolute top-[-20px]'>
+                                    <Tooltip content={'Update avatar'}/>
+                                </div>}
                             </label>
                         </div>
                     }
@@ -87,7 +106,7 @@ console.log(avatarImage);
 
 
             </div>
-            <Tooltip/>
+            
             <Toaster containerStyle={false} position='bottom-right' />
         </div>
     );

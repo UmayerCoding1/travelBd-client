@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 
-export const SkeletonContext = createContext(null);
+export const ReloadLoadingContext = createContext(null);
 const LoadingContext = ({children}) => {
     const [skeletonLoading,setSkeletonLoading]= useState(true);
 
@@ -11,16 +11,16 @@ const LoadingContext = ({children}) => {
             setSkeletonLoading(false)
         },2000)
 
-        // setSkeletonLoading(false)
+
     },[])
 
     const contextValue = {
         skeletonLoading,
         setSkeletonLoading
     }
-    return <SkeletonContext.Provider value={contextValue}>
+    return <ReloadLoadingContext.Provider value={contextValue}>
         {children}
-    </SkeletonContext.Provider>
+    </ReloadLoadingContext.Provider>
 };
 
 export default LoadingContext;

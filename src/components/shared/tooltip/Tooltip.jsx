@@ -1,9 +1,9 @@
 import React from 'react';
-
-const Tooltip = () => {
+import './tooltip.css'
+const Tooltip = ({content}) => {
     return (
-        <div>
-            t
+        <div className='tooltip-containar w-32'>
+            <button className='main'>{content}</button>
         </div>
     );
 };

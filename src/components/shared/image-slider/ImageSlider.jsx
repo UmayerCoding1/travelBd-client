@@ -3,18 +3,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-const ImageSlider = ({image,rating}) => {
+const ImageSlider = ({image,imageTitle,style}) => {
     return (
-        <div className="w-full h-52 lg:h-60 relative">
+        <div className={style}>
         <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
            {image?.map((img, i) => (
               <SwiperSlide key={i}>
-                 <img className="w-full h-full object-cover" src={img} alt="" />
+                 <img className="w-full h-full object-cover " src={img} alt="" title={imageTitle || null}/>
               </SwiperSlide>
            ))}
         </Swiper>
-  
-       
      </div>
     );
 };

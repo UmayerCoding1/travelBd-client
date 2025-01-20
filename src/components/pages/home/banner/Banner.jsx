@@ -9,7 +9,7 @@ const BannerA = () => {
             <div className='w-full h-full  absolute '>
                 <div className=' w-full h-full'>
                     <div className='banner-bgImage w-full h-full flex items-center justify-center'>
-                        <h2 className='text-[110px] lg:text-[300px] font-extrabold'>TRAVEL</h2>
+                        <h2 className='text-[110px] lg:text-[250px] font-extrabold leading-tight'>TRAVEL</h2>
                     </div>
 
                     <img className='absolute top-0 lg:left-[28%] w-[550px]' src={person} alt="" />

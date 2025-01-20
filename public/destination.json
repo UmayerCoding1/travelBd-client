@@ -1,9 +1,9 @@
 [
   {
-    "id": 1,
+
     "title": "Cox’s Bazar Tour Package Package 3 Days 2 Nights",
     "location": "Chattogram",
-    "tour_location": "Cox's Bazar",
+    "tourLocation": "Cox's Bazar",
     "Offer": {
       "day": 3,
       "hours": "",
@@ -25,7 +25,7 @@
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/b7ac8412-61f6-483e-b867-865e7f3c0eca.png",
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/f7b6e9c1-2083-404a-b687-f8dc64994a69.jpg"
     ],
-    "inclusion-Exclusion": {
+    "tourPackage": {
       "inclusion": [
         "Two nights shared accommodation in Cox’s Bazar with complimentary breakfast.",
         "CNG/Chander Gari for half-day sightseeing at Marin Drive Road (Inani, Himchori, Patuartek).",
@@ -45,10 +45,10 @@
     "rating": 5
   },
   {
-    "id": 2,
+
     "title": "Ramu and Marine Drive Full Day Tour",
     "location": "Chattogram",
-    "tour_location": "Cox's Bazar",
+    "tourLocation": "Cox's Bazar",
     "Offer": {
       "day": "",
       "hours": 8,
@@ -66,7 +66,7 @@
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/bd31f467-17c8-483a-a6bd-3f8862726d30.png",
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/14bb19e8-b11a-43b7-88d4-43f3c0495a35.jpg"
     ],
-    "inclusion-Exclusion": {
+    "tourPackage": {
       "inclusion": ["Experienced Driver", "Parking charge", "Fuel cost"],
       "exclusion": [
         "Food",
@@ -79,10 +79,10 @@
     "rating": 4
   },
   {
-    "id": 3,
+
     "title": "MV Utshob",
     "location": "khulna",
-    "tour_location": "khulna",
+    "tourLocation": "khulna",
     "Offer": {
       "day": 3,
       "hours": "",
@@ -106,7 +106,7 @@
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/c658c0fa-8e33-46de-b70b-d679f65f72f8.gif",
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/44be3e67-c3f6-49f5-893d-655d6bf3900e.gif"
     ],
-    "inclusion-Exclusion": {
+    "tourPackage": {
       "inclusion": [
         "Two nights’ accommodation on a Single/Double/Twin/Triple/Four Bed-sharing cabin",
         "All meals during the trip",
@@ -129,10 +129,10 @@
     "rating": 3
   },
   {
-    "id": 4,
+
     "title": "Sea Pearl Cruise 4",
     "location": " Khulna",
-    "tour_location": " Khulna",
+    "tourLocation": " Khulna",
     "Offer": {
       "day": 3,
       "hours": "",
@@ -155,7 +155,7 @@
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/449288e3-2cf9-4706-9a2a-53f447c837e0.jpg",
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/895cd944-8d43-4c24-a3fb-de8894a5979e.png"
     ],
-    "inclusion-Exclusion": {
+    "tourPackage": {
       "inclusion": [
         "Accommodation on the ship cabins",
         "All meals during the tour",
@@ -180,10 +180,10 @@
     "rating": 4
   },
   {
-    "id": 5,
+
     "title": "Sajek - Couple Tour (1 Night and 2 Days)",
     "location": "sajek",
-    "tour_location": "Chattogram",
+    "tourLocation": "Chattogram",
     "Offer": {
       "day": 2,
       "hours": "",
@@ -207,7 +207,7 @@
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/ca7859e8-48a7-4c0e-8120-f1a5fb0ee605.jpg",
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/ee6cca5c-a344-4aa3-a511-fef53e52d809.jpg"
     ],
-    "inclusion-Exclusion": {
+    "tourPackage": {
       "inclusion": [
         "Round way private transportation (Khagrachori - Sajek - Khagrachori)",
         "Accommodation in a resort",
@@ -229,10 +229,10 @@
     "rating": 4
   },
   {
-    "id": 6,
+
     "title": "Panam City & Sonargaon Tour",
     "location": "dhaka",
-    "tour_location": "Dhaka",
+    "tourLocation": "Dhaka",
     "Offer": {
       "day": "",
       "hours": 8,
@@ -250,7 +250,7 @@
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/bcccfdac-16b6-4bd9-858d-edea295b13e5.jpg",
       "https://storage.googleapis.com/gz-main-prod-main/media/tour_management/pictures/upload/35d60eeb-2f52-40d1-b6ca-f76f5a7a61f7.jpg"
     ],
-    "inclusion-Exclusion": {
+    "tourPackage": {
       "inclusion": [
         "Car rental",
         "Experienced Driver",

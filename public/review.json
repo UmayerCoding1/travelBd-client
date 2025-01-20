@@ -1,43 +1,26 @@
 [
-    {
-      "_id": 1,
-      "user_name": "GlobeTrotter99",
-      "post_date": "2024-12-14",
-      "user_avatar": "https://randomuser.me/api/portraits/men/1.jpg",
-      "comment": "Amazing trip! The tour gu_ide was super knowledgeable, and the accommodations were perfect. Would definitely book again!",
-      "rating": 2
-    },
-    {
-      "_id": 2,
-      "user_name": "WanderlustQueen",
-      "post_date": "2024-12-13",
-      "user_avatar": "https://randomuser.me/api/portraits/women/2.jpg",
-      "comment": "The beaches were stunning, but the transportation was delayed. Still a great experience overall!",
-      "rating": 2
-    },
-    {
-      "_id": 3,
-      "user_name": "BackpackerLife",
-      "post_date": "2024-12-12",
-      "user_avatar": "https://randomuser.me/api/portraits/men/3.jpg",
-      "comment": "Affordable and well-organized. I loved the hiking trails and local food recommendations!",
-      "rating": 2
-    },
-    {
-      "_id": 4,
-      "user_name": "NomadicSoul",
-      "post_date": "2024-12-11",
-      "user_avatar": "https://randomuser.me/api/portraits/women/4.jpg",
-      "comment": "The historical landmarks were breathtaking, but the itinerary felt rushed. Could have used more free time.",
-      "rating": 2
-    },
-    {
-      "_id": 5,
-      "user_name": "AdventureSeeker",
-      "post_date": "2024-12-10",
-      "user_avatar": "https://randomuser.me/api/portraits/men/5.jpg",
-      "comment": "The adventure package was thrilling! Ziplining and river rafting were highlights of the trip.",
-      "rating": 2
-    }
-  ]
-  
+  {
+    "id": 1,
+    "author_name": "Arif Rahman",
+    "date": "2025-01-15",
+    "content": "The trip was amazing! Everything was well-organized, and the tour guide was very knowledgeable. Highly recommend!",
+    "image": "https://shorturl.at/SIEzV",
+    "rating": 5
+  },
+  {
+    "id": 2,
+    "author_name": "Nusrat Jahan",
+    "date": "2025-01-12",
+    "content": "Absolutely loved the experience! The destinations were breathtaking, and the service was top-notch.",
+    "image": "https://i.postimg.cc/Kv7znZW0/7d5b6a-c6a0de238dd94afc99796bb3073f78b1-mv2.webp",
+    "rating": 5
+  },
+  {
+    "id": 3,
+    "author_name": "Tanvir Ahmed",
+    "date": "2025-01-10",
+    "content": "Excellent trip! Everything went smoothly, and the team was super helpful. Would definitely book again.",
+    "image": "https://i.postimg.cc/2yc0JpcM/ert.webp",
+    "rating": 5
+  }
+]

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // Main style file
 import 'react-date-range/dist/theme/default.css'; // Theme CSS file
-const DateRangeCalender = ({setSelectBookingDate,setShowHotelBookingDate,visible}) => {
+const DateRangeCalender = ({setSendData, SetAction,visible,btnText}) => {
     const [state, setState] = useState([
         {
             startDate: new Date(),
@@ -33,9 +33,9 @@ const DateRangeCalender = ({setSelectBookingDate,setShowHotelBookingDate,visible
             <button 
              onClick={(e) => {
                 e.stopPropagation();
-                setShowHotelBookingDate(false)
-                setSelectBookingDate(tempSelection[0])}}
-            className={`w-full h-10 text-xs rounded-lg font-semibold mt-5  ${state[0].endDate ? 'bg-orange-500 text-white' : "bg-gray-300 cursor-not-allowed text-gray-500"}`} >Reserve</button>
+                SetAction(false)
+                setSendData(tempSelection[0])}}
+            className={`w-full h-10 text-xs rounded-lg font-semibold mt-5  ${state[0].endDate ? 'bg-orange-500 text-white' : "bg-gray-300 cursor-not-allowed text-gray-500"}`} >{btnText ? btnText :"Reserve"}</button>
         </div>
     );
 };

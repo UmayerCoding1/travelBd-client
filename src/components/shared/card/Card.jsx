@@ -2,29 +2,41 @@ import React from 'react';
 import { LocationIcon } from '../../../provider/IconProvider';
 import ImageSlider from '../image-slider/ImageSlider';
 import { Rating } from '@mui/material';
+import { Link } from 'react-router';
 const Card = ({please}) => {
-    const {image,location,title,rating,Price} = please;
+    const {image,location,title,rating,Price,_id} = please;
+    
+    
     return (
-        <div className="w-full lg:max-w-xs h-auto shadow-xl p-4 my-4 lg:my-0">
-         <ImageSlider image={image} rating={rating}/>
+        <div className="max-w-xs h-auto shadow-xl p-4 my-4 lg:my-0">
+         <ImageSlider image={image} rating={rating} imageTitle={title} style={'w-full h-52 lg:h-52 relative'}/>
    <div>
       <div className='flex items-center justify-between'>
-      <p className="flex items-center text-sm m-2">
-         <LocationIcon className="text-orange-500 mr-2" /> {location}
-      </p>
+      
+          <h2 className="text-lg font-bold my-2">
+            {title?.length > 25 ? (
+    <>
+      {title.slice(0, 25)} <span className="font-normal text-gray-500">. . .</span>
+    </>
+  ) : (
+    title
+  )}</h2>
+      
 
-      <Rating style={{fontSize: '18px'}} name="read-only" value={rating} readOnly />
+      {/* <Rating style={{fontSize: '18px', color: 'blue'}} name="read-only" value={Number(rating)} readOnly /> */}
       </div>
-      <h2 className="text-lg font-bold my-2">{title}</h2>
+      <button className='flex items-center text-xs'><LocationIcon className="text-orange-500 " /> {location}</button>
 
-      <div className="flex items-center justify-between gap-4">
-         <p className="text-sm font-medium">
-            <span className="text-orange-500">৳{Price}</span>/per person
+      <div className="flex items-center justify-between gap-4 ">
+         <p className="text-sm font-medium flex items-center">
+            <span className="text-orange-500">৳{Price}</span><span className='text-xs'>_per person</span>
          </p>
 
-         <button className="w-20 h-8 bg-orange-500 text-white rounded-lg text-xs">
+         <Link to={`/destination/${_id}`}>
+         <button className="w-20 h-8 border-[1.5px] border-black rounded-lg text-xs hover:bg-primaryBgColor hover:text-white hover:border-none transition-all ease-linear duration-300">
             View 
          </button>
+         </Link>
       </div>
    </div>
 </div>

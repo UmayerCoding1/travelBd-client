@@ -5,6 +5,7 @@ import SignIn from "../components/pages/sign-in/SignIn";
 import SignUp from "../components/pages/sign-up/SignUp";
 import Profile from "../components/pages/user/profile/Profile";
 import PrivetRoute from "./PrivetRoute";
+import DestinationDetails from "../components/shared/destinatinDetails/DestinationDetails";
 
 const render = createBrowserRouter([
     {
@@ -16,11 +17,30 @@ const render = createBrowserRouter([
                 path: '/',
                 element:<Home/>
             },
+
+            {
+                path: '/destinations'
+            },
+            {
+                path:'/destination/:id',
+                element:<DestinationDetails/>,
+                loader: async ({params}) => await fetch(`${import.meta.env.VITE_API_ENDPOINT_LOCAL}/destination/${params.id}`)
+            },
+            {
+                path:'/hotel'
+            },
+            {
+                path:'/hotel:id'
+            },
+
+
+
             // user related route
             {
-                path:"profile",
+                path:"/profile",
                 element: <PrivetRoute><Profile/></PrivetRoute>
             }
+            
         ]
     },
     // auth related

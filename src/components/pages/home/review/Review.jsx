@@ -19,51 +19,27 @@ const Review = () => {
     
     
     return (
-        <div className='w-full mt-20 lg:h-[50vh] p-2 lg:flex items-center justify-between'>
-            <div className='lg:w-1/2'>
+        <div className='w-full   mt-36'>
+              <h1 className='text-3xl font-bold text-center'>Loved By Over Thousand Travelers</h1>
 
-            <div className='lg:w-full flex flex-col items-center justify-center lg:block'>
-           <SectionTitle title={'What they say'}/>
-           <h2 className='text-4xl lg:text-5xl font-semibold'>What Out Customers</h2>
-           <h2 className='text-4xl lg:mt-2'>Say about Us</h2>
-            </div>
 
-            <div className='w-full  lg:w-1/2  mt-10 lg:my-5'>
-            
-            <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
-                {reviews?.map(review => {
-                    const{_id,user_name,user_avatar,post_date,comment,rating}=review;
-                    return([
-                        <SwiperSlide key={_id}>
-                    <div className='w-full h-40'>
-                        <div className='flex items-center gap-2'>
-                            <img className='!w-10 !h-10  rounded-full' src={user_avatar} alt={`${user_name}'s avatar`} />
+              <div className='flex flex-col lg:flex-row items-center justify-evenly p-2'>
+                {reviews?.map((review,ixd) => <div key={ixd} className='bg-gray-50 w-60 lg:w-64 h-60 rounded-lg my-3 lg:my-0 hover:bg-blue-500 hover:text-white transition-all ease-linear duration-300 p-1'>
+                    <div className='w-full h-[60%] bg-white rounded-lg p-3'>
+                       <Rating style={{fontSize: '18px', color: "#3b82f6"}} name="read-only" value={review.rating} readOnly />
+                       <p className='text-xs leading-5 text-black'>{review.content}</p>
+                    </div>
 
-                            <div>
-                                <p className='font-semibold text-xs'>{user_name}</p>
-                                <p className='text-xs'>{post_date}</p>
-                                <Rating style={{fontSize: '15px', padding:'0'}}  name="read-only" value={rating} readOnly />
-                            </div>
-                        </div>
+                    <div className='flex items-center gap-3 mt-5 '>
+                        <img className='w-16 h-16 rounded-full' src={review.image} alt="" />
 
-                        <div className='mt-2'>
-                            <p className='text-xs'>{comment}</p>
+                        <div >
+                            <p className='text-xs font-semibold'>{review.author_name}</p>
+                            <p className='text-xs font-semibold'>{review.date}</p>
                         </div>
                     </div>
-                </SwiperSlide>
-                    ])
-                })}
-        
-      </Swiper>
-            </div>
-            </div>
-
-
-            <div className='w-full h-full hidden lg:block'>
-                <img className=' h-full rounded-lg' src={reviewImg} alt="" />
-            </div>
-
-           
+                </div>)}
+              </div>
         </div>
     );
 };

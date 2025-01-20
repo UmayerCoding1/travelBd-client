@@ -6,31 +6,20 @@ import Service from './service/Service';
 import Destination from './destination/Destination';
 import Review from './review/Review';
 import SearchOption from './searchOption/SearchOption';
-import Loading from '../../shared/loading/Loading';
-import ReloadAnimation from '../../shared/reload-animation/ReloadAnimation';
+import useDestinations from '../../../hooks/useDestinations';
+
 
 
 
 const Home = () => {
-    const {skeletonLoading} = useContext(ReloadLoadingContext);
-    
     return (
         <div>
-          
-           
-            
-            <>
-              <Banner/>
-              <SearchOption/>
-              <About/>
-              <Service/>
-              <Destination/>
-              <Review/>
-              {/* <ReloadAnimation/> */}
-            </>
-           
-            
-            
+                <Banner />
+                <SearchOption />
+                <Destination />
+                <About />
+                <Service />
+                <Review />
         </div>
     );
 };

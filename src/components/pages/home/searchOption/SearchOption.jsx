@@ -106,7 +106,7 @@ const SearchOption = () => {
     <div style={{ backgroundImage: `url(${searchBanner})` }} className="flex flex-col items-center justify-center w-full lg:h-[70vh] bg-center bg-cover rounded-2xl lg:py-20 lg:px-8 mb-10 mt-10">
 
       <div className='w-full bg-white flex flex-col items-center justify-center rounded-lg p-3'>
-        <div className="flex items-center gap-3 mt-8 mb-2" >
+        {/* <div className="flex items-center gap-3 mt-8 mb-2" >
           <div className="flex items-center">
             <FormControlLabel control={<Checkbox checked={searchOption === 'tour'} onChange={(e) => setSearchOption(e.target.value)} value={'tour'} />} label="Tour" />
           </div>
@@ -114,7 +114,7 @@ const SearchOption = () => {
           <div className="flex items-center">
             <FormControlLabel control={<Checkbox checked={searchOption === 'hotel'} onChange={(e) => setSearchOption(e.target.value)} value={'hotel'} />} label="Hotel" />
           </div>
-        </div>
+        </div> */}
 
         {searchOption === 'hotel' &&
 
@@ -189,7 +189,7 @@ const SearchOption = () => {
                       <p className='text-xs text-gray-500'>{endDateFormat?.split(',')[0]}</p>
                     </div>
                   </div>
-                  {showHotelBookingDate && <div ref={bookingRef} className='bg-white absolute z-10 top-[70px] p-3 shadow-2xl rounded-lg'> <DateRangeCalender setSelectBookingDate={setSelectBookingDate} setShowHotelBookingDate={setShowHotelBookingDate} visible={visible} /></div>}
+                  {showHotelBookingDate && <div ref={bookingRef} className='bg-white absolute z-10 top-[70px] p-3 shadow-2xl rounded-lg'> <DateRangeCalender setSendData={setSelectBookingDate} SetAction={setShowHotelBookingDate} visible={visible} /></div>}
                 </div>
 
                 <div className="hidden border border-gray-300 outline-none w-full  h-[65px]  lg:flex p-1 gap-2 cursor-pointer">
